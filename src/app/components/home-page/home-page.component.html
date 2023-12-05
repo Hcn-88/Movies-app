@@ -1,29 +1,28 @@
-<div class="container">
-    <div class="btns">
-        <button (click)="sortTitleOnClick()">Sort by Title</button>
-        <button (click)="sortReleaseYearOnClick()">Sort by Release Date</button>
-    </div>
-    <div class="details">
-        <section *ngFor="let movie of movieData">
-            <div class="image">
-                <img title="Click for more details"  src={{movie.imagePath}} alt={{movie.title}} [routerLink]="['/movie-detail/{{movie.id}}']" (click)="getMovieId(movie.id)">
-            </div>
-            <div class="title">
-                <div>
-                    <h1><strong>{{movie.title}}</strong></h1>
-                    <h1><strong>Coming on:</strong> {{movie.releaseDate}}</h1>
-                </div>
-                <div class="buttons">
-                    <button [disabled]="isInWatchlist(movie)" (click)="addMovie(movie)">Add to Watchlist</button>
-                    <button class="removeBtn" [disabled]="!isInWatchlist(movie)" (click)="removeMovie(movie.title)">Remove from Watchlist</button>
-                </div>
-                <div>
-                    <p *ngIf="isInWatchlist(movie)">On my Watchlist</p>
-                </div>
-            </div>
-            <div class="rate">
-                <h3>{{movie.rating}}<i class="fa fa-star"></i></h3>
-            </div>
-        </section>
-    </div>
-</div>
+  <div class="btns">
+      <button (click)="sortTitleOnClick()">Sort by Title</button>
+      <button (click)="sortReleaseYearOnClick()">Sort by Release Date</button>
+  </div>
+  <div class="details">
+      <section *ngFor="let movie of movieData">
+          <div class="image">
+              <img title="Click for more details"  src={{movie.imagePath}} alt={{movie.title}} [routerLink]="['/movie-detail/{{movie.id}}']" (click)="getMovieId(movie.id)">
+          </div>
+          <div class="title">
+              <div>
+                  <h1><strong>{{movie.title}}</strong></h1>
+                  <h1><strong>Coming on:</strong> {{movie.releaseDate}}</h1>
+              </div>
+              <div class="buttons">
+                  <button [disabled]="isInWatchlist(movie)" (click)="addMovie(movie)">Add to Watchlist</button>
+                  <button class="removeBtn" [disabled]="!isInWatchlist(movie)" (click)="removeMovie(movie.title)">Remove from Watchlist</button>
+              </div>
+              <div>
+                  <p *ngIf="isInWatchlist(movie)">On my Watchlist</p>
+              </div>
+          </div>
+          <div class="rate">
+              <h3>{{movie.rating}}<i class="fa fa-star"></i></h3>
+          </div>
+      </section>
+  </div>
+
