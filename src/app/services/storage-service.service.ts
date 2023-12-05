@@ -24,6 +24,8 @@ export class StorageServiceService {
     if (!isInWatchlist) {
       this.watchlistMovies.push(movie);
       this.setLocalStorage('watchlist', JSON.stringify(this.watchlistMovies));
+    } else {
+      return;
     }
   }
 
