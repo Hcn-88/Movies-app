@@ -15,8 +15,14 @@ export class StorageServiceService {
   }
 
   getLocalStorage(): Film[] {
-    const localStorageData = localStorage.getItem('watchlist');
-    return localStorageData ? JSON.parse(localStorageData) : [];
+    // To prevent errors when running the application in environments where localStorage is not available
+    if (typeof localStorage !== 'undefined') {
+      const localStorageData = localStorage.getItem('watchlist');
+      return localStorageData ? JSON.parse(localStorageData) : [];
+    } else {
+      console.error('localStorage is not available.');
+      return [];
+    }
   }
 
   checkMovieExists(movie: Film): boolean { 
