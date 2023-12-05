@@ -19,6 +19,11 @@ export class StorageServiceService {
     return localStorageData ? JSON.parse(localStorageData) : [];
   }
 
+  checkMovieExists(movie: Film): boolean { 
+    const watchlistMovies = this.getLocalStorage();
+    return watchlistMovies.some((m) => m.id === movie.id);
+  }
+
   addToWatchlist(movie: Film) {
     const isInWatchlist = this.checkMovieExists(movie);
     if (!isInWatchlist) {
@@ -36,11 +41,6 @@ export class StorageServiceService {
       movieList.splice(movieIndexToRemove, 1);
       localStorage.setItem('watchlist', JSON.stringify(movieList));
     }
-  }
-
-  checkMovieExists(movie: Film): boolean { 
-    const watchlistMovies = this.getLocalStorage();
-    return watchlistMovies.some((m) => m.id === movie.id);
   }
 
 }
