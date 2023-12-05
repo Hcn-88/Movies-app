@@ -6,12 +6,12 @@ import { Film } from '../../../Film';
 })
 export class StorageServiceService {
 
-  watchlistMovies:Film[] = [];
+  watchlistMovies:Film[] = this.getLocalStorage();
 
   constructor() { }
 
-  setLocalStorage(key: string, value: string) {
-    localStorage.setItem(key, value);
+  setLocalStorage(key: string, value: Film[]): void {
+    localStorage.setItem(key, JSON.stringify(value));
   }
 
   getLocalStorage(): Film[] {
@@ -20,27 +20,23 @@ export class StorageServiceService {
   }
 
   checkMovieExists(movie: Film): boolean { 
-    const watchlistMovies = this.getLocalStorage();
-    return watchlistMovies.some((m) => m.id === movie.id);
+    return this.watchlistMovies.some((m) => m.id === movie.id);
   }
 
   addToWatchlist(movie: Film) {
-    const isInWatchlist = this.checkMovieExists(movie);
-    if (!isInWatchlist) {
-      this.watchlistMovies.push(movie);
-      this.setLocalStorage('watchlist', JSON.stringify(this.watchlistMovies));
+    const existingMovieIndex = this.watchlistMovies.findIndex(m => m.id === movie.id);
+    if (existingMovieIndex !== -1) {
+      this.watchlistMovies[existingMovieIndex] = movie;
     } else {
-      return;
+      this.watchlistMovies.push(movie);
     }
+    this.setLocalStorage('watchlist', this.watchlistMovies);
   }
 
   removeFromWatchlist(movieTitle: string) {
-    const movieList = this.getLocalStorage();
-    const movieIndexToRemove = movieList.findIndex((movie) => movie.title === movieTitle);
-    if (movieIndexToRemove !== -1) {
-      movieList.splice(movieIndexToRemove, 1);
-      localStorage.setItem('watchlist', JSON.stringify(movieList));
-    }
+    this.watchlistMovies = this.watchlistMovies.filter(movie => movie.title !== movieTitle);
+    this.setLocalStorage('watchlist', this.watchlistMovies);
   }
 
 }
+
