@@ -23,13 +23,13 @@ export class MovieDetailsComponent implements OnInit {
 
   constructor(private data:MovieServiceService, 
               private sanitizer:DomSanitizer, 
-              private storage: StorageServiceService) {
+              private storage: StorageServiceService) {}
+  
+  ngOnInit(): void {
     this.movieDetails = this.data.selectedMovie;
     this.youtubeUrl = this.movieDetails.trailerUrl;
     this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.youtubeUrl);
   }
-  
-  ngOnInit(): void {}
 
   addMovie(movie: Film) {
     this.storage.addToWatchlist(movie);
