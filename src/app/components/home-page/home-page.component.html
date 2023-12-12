@@ -6,6 +6,7 @@
     <section *ngFor="let movie of movieData">
         <div class="image">
             <img title="Click for more details"  src={{movie.imagePath}} alt={{movie.title}} [routerLink]="['/movie-detail/{{movie.id}}']" (click)="getMovieId(movie.id)">
+            <span *ngIf="isInWatchlist(movie)">On my Watchlist</span>
         </div>
         <div class="title">
             <div>
@@ -15,9 +16,6 @@
             <div class="buttons">
                 <button [disabled]="isInWatchlist(movie)" (click)="addMovie(movie)">Add to Watchlist</button>
                 <button class="removeBtn" [disabled]="!isInWatchlist(movie)" (click)="removeMovie(movie.title)">Remove from Watchlist</button>
-            </div>
-            <div>
-                <p *ngIf="isInWatchlist(movie)">On my Watchlist</p>
             </div>
         </div>
         <div class="rate">
