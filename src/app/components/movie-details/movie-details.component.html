@@ -10,10 +10,10 @@
           <h1><strong>Coming on:</strong> {{ movieDetails.releaseDate }}</h1>
       </div>
       <div class="image">
+          <span *ngIf="isInWatchlist(movieDetails)">On my Watchlist</span>
           <img src={{movieDetails.imagePath}} alt={{movieDetails.title}}>
           <button mat-stroked-button [disabled]="isInWatchlist(movieDetails)" (click)="addMovie(movieDetails)">Add to Watchlist</button>
           <button class="removeBtn" [disabled]="!isInWatchlist(movieDetails)" (click)="removeMovie(movieDetails.title)">Remove from Watchlist</button>
-          <p *ngIf="isInWatchlist(movieDetails)">On my Watchlist</p>
           <h3>{{ movieDetails.rating }}<i class="fa fa-star"></i></h3>
       </div>
   </section>
